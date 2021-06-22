@@ -35,6 +35,11 @@ function checkErrors() {
         var deci=binaryToDecimal()
         output.value=deci
     }
+    else if (from.value === "hexadecimal" && to.value ==="decimal")
+    {
+        var deci=hexadecimalToDecimal()
+        output.value=deci
+    }
 }
 function binaryToDecimal()
 {
@@ -50,4 +55,23 @@ function binaryToDecimal()
         num*=2
      }
      return decimal
+}
+function hexadecimalToDecimal()
+{
+    var hexanum=input.value
+    var num=1
+    var decimal=0
+    for(var i=hexanum.length-1;i>=0;i--)
+    {
+        if(hexanum[i]>='0' && hexanum[i]<='9')
+        {
+            decimal+=(hexanum.charCodeAt(i)-48)*num
+        }
+        else
+        {
+            decimal+=(hexanum.charCodeAt(i)-55)*num;
+        }
+        num*=16
+    }
+    return decimal
 }

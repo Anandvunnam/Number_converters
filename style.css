@@ -39,15 +39,6 @@ body {
     padding: 0.5rem;
 }
 
-.alert-dismissible .btn-close {
-    padding: 1.25rem 1rem;
-}
-
-.wrapper .btn-close {
-    box-shadow: none;
-    background-size: 12px 12px;
-}
-
 .wrapper [readonly] {
     cursor: no-drop;
 }

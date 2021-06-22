@@ -40,21 +40,29 @@ function checkErrors() {
         var deci=hexadecimalToDecimal()
         output.value=deci
     }
+    else if (from.value === "hexadecimal" && to.value === "octal")
+    {
+        var deci=hexadecimalToDecimal()
+        
+        var octal=decimalToOctal(deci)
+        output.value=octal
+    }
+
 }
 function binaryToDecimal()
 {
-     var binary=Number(input.value)
-     var rem=0
-     var num=1
-     var decimal=0;
-     while(binary>0)
-     {
+    var binary=Number(input.value)
+    var rem=0
+    var num=1
+    var decimal=0;
+    while(binary>0)
+    {
         rem=binary%10
         binary=Math.floor(binary/10)
         decimal+=rem*num
         num*=2
-     }
-     return decimal
+    }
+    return decimal
 }
 function hexadecimalToDecimal()
 {
@@ -74,4 +82,18 @@ function hexadecimalToDecimal()
         num*=16
     }
     return decimal
+}
+function decimalToOctal(decimal)
+{
+    var octal=0
+    var rem=0
+    var num=1
+    while(decimal>0)
+    {
+        rem=decimal%8
+        decimal=Math.floor(decimal/8)
+        octal+=rem*num
+        num*=10
+    }
+    return octal
 }

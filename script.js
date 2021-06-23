@@ -1,3 +1,8 @@
+
+// Project: Number System Converters
+// By: Anand Vunnam & Malisetty Bhavani
+
+
 var from = document.getElementById("from")
 var to = document.getElementById("to")
 var btn = document.querySelector(".btn.btn-primary")
@@ -32,54 +37,53 @@ function checkErrors() {
     else if (from.value === "From" || to.value === "To") { // if both values are set to initial ones.
         makeAlert("block", "Please select the conversions.")
     }
+
     else if (input.value === "") { // if input is empty
         makeAlert("block", "Enter any input value to convert")
     }
-    else {
-        makeAlert("none","")
-        convertNumbers(from.value, to.value, input.value)
 
+    else {
+        makeAlert("none", "")
+        convertNumbers(from.value, to.value, input.value)
     }
 }
 
 convertNumbers = (from, to, input) => {
 
-    if(from === "binary")
-    {
+    if (from === "binary") {
         var pattern = /[01]*/g
-        if (input !== pattern.exec(input)[0])
-        {
+        if (input !== pattern.exec(input)[0]) {
             return makeAlert("block", "Binary numbers should contain 0 or 1 only.")
         }
+        input = Number(input)
     }
-    else if(from === "octal")
-    {
+
+    else if (from === "octal") {
         var pattern = /[0-7]*/g
         if (input !== pattern.exec(input)[0]) {
-
             return makeAlert("block", "Octal digit  should be in the range [0-7] only.")
         }
-        
+        input = Number(input)
     }
-    else if(from === "decimal")
-    {
+
+    else if (from === "decimal") {
         var pattern = /[0-9]*/g
-        if (input !== pattern.exec(input)[0])
-        {
+        if (input !== pattern.exec(input)[0]) {
             return makeAlert("block", "Decimal digit should be in the range [0-9] only.")
         }
+        input = Number(input)
     }
-    else if(from === "hexadecimal")
-    {
 
-        var pattern =/[0-9]*[ABCDEF]*/g
+    else if (from === "hexadecimal") {
+        var pattern = /[0-9]*[ABCDEF]*/g
         if (input !== pattern.exec(input)[0]) {
-        return makeAlert("block", "Hexadecimal Digits should contain charcters from ABCDEF and digits from [0-9] only.")
+            return makeAlert("block", "Hexadecimal Digits should contain charcters from ABCDEF and digits from [0-9] only.")
         }
     }
-    var fromToString = from + to
-    switch (fromToString) {
 
+    var fromToString = from + to
+
+    switch (fromToString) {
         case 'decimalbinary':
             output.value = decimalToBinary(input); break;
         case 'decimaloctal':
@@ -105,13 +109,11 @@ convertNumbers = (from, to, input) => {
         case 'hexadecimaloctal':
             output.value = hexadecimalToOctal(input); break;
         default: makeAlert("block", "Invalid Conversion!")
-
     }
 }
 
 //Converts Binary number to Decimal.
 function binaryToDecimal(binaryNumber) {
-
     var rem = 0
     var num = 1
     var decimal = 0;
@@ -122,26 +124,20 @@ function binaryToDecimal(binaryNumber) {
         num *= 2
     }
     return decimal
-
 }
 
 //Converts Binary number to Octal.
-function binaryToOctal(number){
-
-    return decimalToOctal(binaryToDecimal(number)) 
-
+function binaryToOctal(number) {
+    return decimalToOctal(binaryToDecimal(number))
 }
 
 //Converts Binary number to Hexadecimal.
-function binaryToHexadecimal(number){
-
-    return  decimalToHexadecimal(binaryToDecimal(number))
-
+function binaryToHexadecimal(number) {
+    return decimalToHexadecimal(binaryToDecimal(number))
 }
 
 //Converts Decimal number to Binary.
 function decimalToBinary(number) {
-   
     var result = 0
     var place = 0
     while (number > 0) {
@@ -149,12 +145,10 @@ function decimalToBinary(number) {
         number = Math.floor(number / 2)
     }
     return result
-
 }
 
 //Converts Decimal number to Octal.
 function decimalToOctal(decimal) {
-
     var octal = 0
     var rem = 0
     var num = 1
@@ -165,13 +159,11 @@ function decimalToOctal(decimal) {
         num *= 10
     }
     return octal
-
 }
 
 //Converts Decimal number to Hexadecimal.
 function decimalToHexadecimal(number) {
-
-   var result = new Array()
+    var result = new Array()
     let i = 0
     while (number > 0) {
         result[i++] = number % 16
@@ -182,68 +174,51 @@ function decimalToHexadecimal(number) {
         hexValue += (result[j] < 10) ? String.fromCharCode(result[j] + 48) : String.fromCharCode(result[j] + 55)
     }
     return hexValue
-
 }
 
 //Converts Hexadecimal number to Binary.
-function hexadecimalToBinary(number)
-{
-
+function hexadecimalToBinary(number) {
     return decimalToBinary(hexadecimalToDecimal(number))
-
-}    
+}
 
 //Converts Hexadecimal Number to Decimal.
 function hexadecimalToDecimal(number) {
-
     var hexanum = number
     var num = 1
     var decimal = 0
     for (var i = hexanum.length - 1; i >= 0; i--) {
         if (hexanum[i] >= '0' && hexanum[i] <= '9') {
             decimal += (hexanum.charCodeAt(i) - 48) * num
-        }    
+        }
         else {
             decimal += (hexanum.charCodeAt(i) - 55) * num;
-        }    
+        }
         num *= 16
-    }    
+    }
     return decimal
-
-}    
+}
 
 //Converts Hexadecimal number to Octal.
-function hexadecimalToOctal(number)
-{
-
+function hexadecimalToOctal(number) {
     return binaryToOctal(hexadecimalToBinary(number))
-
-}    
+}
 
 //Converts Octal number to Decimal.
 function octalToDecimal(number) {
-    
     let result = 0, place = 0
     while (number > 0) {
         result += (number % 10) * (Math.pow(8, place++))
         number = Math.floor(number / 10)
     }
     return result
-
 }
 
 //Converts Octal number to Binary.
-function octalToBinary(number)
-{
-    
+function octalToBinary(number) {
     return decimalToBinary(octalToDecimal(number))
-
 }
 
 //Coverts Octal number to Hexadecimal.
-function octalToHexadecimal(number)
-{
-   
-   return decimalToHexadecimal(octalToDecimal(number))
-
+function octalToHexadecimal(number) {
+    return decimalToHexadecimal(octalToDecimal(number))
 }
